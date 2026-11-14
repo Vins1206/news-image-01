@@ -129,7 +129,9 @@ def validate(data):
         kind = "JPEG"
     else:
         fail("art.png: not a PNG or JPEG (bad magic bytes)")
-    if not (1 <= width <= MAX_WIDTH and 1 <= height <= MAX_HEIGHT):
+    if width < 1 or height < 1:
+        fail(f"art.png: dimensions {width}x{height} are empty")
+    if width > MAX_WIDTH or height > MAX_HEIGHT:
         fail(f"art.png: dimensions {width}x{height} exceed 1024x1024")
     return kind, width, height
 
